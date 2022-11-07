@@ -74,13 +74,22 @@ public class MainActivity extends AppCompatActivity {
                                     Log.i("tag", "conn 연결");
                                     // 응답 타임아웃 설정
                                     conn.setRequestProperty("Accept", "application/json");
+                                    Log.i("conn.getRequestProperty","" + conn.getRequestProperty("Accept"));
+
                                     conn.setConnectTimeout(10000);
+                                    Log.i("conn.getConnectTimeout","" + conn.getConnectTimeout());
+
                                     // POST 요청방식
                                     conn.setRequestMethod("POST");
+                                    Log.i("conn.getRequestMethod","" + conn.getRequestMethod());
+
                                     // 포스트 파라미터 전달
                                     conn.getOutputStream().write(params.getBytes("utf-8"));
+
                                     // url에 접속 성공하면 (200)
                                     if(conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                                        Log.i("conn.getResponseCode","" + conn.getResponseCode());
+
                                         // 결과 값 읽어오는 부분
                                         BufferedReader br = new BufferedReader(new InputStreamReader(
                                                 conn.getInputStream(), "utf-8"
