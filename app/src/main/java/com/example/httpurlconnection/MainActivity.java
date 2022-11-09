@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 final String edit_2 = edt_2.getText().toString().trim();
 
                 int status = NetworkStatus.getConnectivityStatus(getApplicationContext());
-                if(status == NetworkStatus.TYPE_MOBILE || status == NetworkStatus.TYPE_WIFI) {
+                if (status == NetworkStatus.TYPE_MOBILE || status == NetworkStatus.TYPE_WIFI) {
 
                     // 프로그래스바 보이게 처리
 //                    findViewById(R.id.cpb).setVisibility(View.VISIBLE);
@@ -62,33 +62,32 @@ public class MainActivity extends AppCompatActivity {
                                 // URL 객체 생성
                                 URL url = new URL(page);
                                 // 연결 객체 생성
-                                HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-
+                                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                                 // Post 파라미터
                                 String params = "param=" + edit_1
                                         + "&param2=" + edit_2;
                                 // 결과값 저장 문자열
                                 final StringBuilder sb = new StringBuilder();
                                 // 연결되면
-                                if(conn != null) {
+                                if (conn != null) {
                                     Log.i("tag", "conn 연결");
                                     // 응답 타임아웃 설정
                                     conn.setRequestProperty("Accept", "application/json");
-                                    Log.i("conn.getRequestProperty","" + conn.getRequestProperty("Accept"));
+                                    Log.i("conn.getRequestProperty", "" + conn.getRequestProperty("Accept"));
 
                                     conn.setConnectTimeout(10000);
-                                    Log.i("conn.getConnectTimeout","" + conn.getConnectTimeout());
+                                    Log.i("conn.getConnectTimeout", "" + conn.getConnectTimeout());
 
                                     // POST 요청방식
                                     conn.setRequestMethod("POST");
-                                    Log.i("conn.getRequestMethod","" + conn.getRequestMethod());
+                                    Log.i("conn.getRequestMethod", "" + conn.getRequestMethod());
 
                                     // 포스트 파라미터 전달
                                     conn.getOutputStream().write(params.getBytes("utf-8"));
 
                                     // url에 접속 성공하면 (200)
-                                    if(conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                                        Log.i("conn.getResponseCode","" + conn.getResponseCode());
+                                    if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                                        Log.i("conn.getResponseCode", "" + conn.getResponseCode());
 
                                         // 결과 값 읽어오는 부분
                                         BufferedReader br = new BufferedReader(new InputStreamReader(
@@ -100,12 +99,12 @@ public class MainActivity extends AppCompatActivity {
                                         }
                                         // 버퍼리더 종료
                                         br.close();
-                                        Log.i("tag", "결과 문자열 :" +sb.toString());
+                                        Log.i("tag", "결과 문자열 :" + sb.toString());
                                         // 응답 Json 타입일 경우
                                         //JSONArray jsonResponse = new JSONArray(sb.toString());
                                         //Log.i("tag", "확인 jsonArray : " + jsonResponse);
 
-                                    }else {
+                                    } else {
 
                                         // runOnUiThread 기본
                                         runOnUiThread(new Runnable() {
@@ -132,14 +131,14 @@ public class MainActivity extends AppCompatActivity {
                                     }
                                 });
 
-                            }catch (Exception e) {
+                            } catch (Exception e) {
                                 Log.i("tag", "error :" + e);
                             }
                         }
                     });
                     th.start();
 
-                }else {
+                } else {
                     Toast.makeText(getApplicationContext(), "인터넷 연결을 확인해주세요.", Toast.LENGTH_SHORT).show();
                 }
 
